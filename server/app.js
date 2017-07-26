@@ -18,7 +18,9 @@ app.get('/', function (req, res) {
 app.post('/create-account', function (req, res) {
   var errors = validateUser(req.body);
   console.log("create-account db");
-  console.log(db);
+  db.print();
+  db.insert({"email" : "tt@tt.com", "password" : "ferfe"});
+  db.print();
   if (errors) {
     res.status(400).send({
       success: false,
