@@ -1,4 +1,3 @@
-
 var form = document.querySelector('.signup__form');
 var $form = $(form);
 var initialState = $form.html();

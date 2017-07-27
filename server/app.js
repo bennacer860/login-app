@@ -16,18 +16,44 @@ app.get('/', function (req, res) {
 
 // Handle form submissions from the Create Account page:
 app.post('/create-account', function (req, res) {
-  var errors = validateUser(req.body);
+  errors = validateUser(req.body);
+  console.log(req.body);
   console.log("create-account db");
   db.print();
-  db.insert({"email" : "tt@tt.com", "password" : "ferfe"});
-  db.print();
+  // try{
+  //       console.log("insert account");
+  // 	db.insert({"email" : req.body.email, "password" : req.body.password});
+  // }
+  // catch (error) {
+  //    console.log(error.message);
+  //   if (errors){
+  //     console.log(errors);
+  //     errors.push(error.message);
+  //   }else{
+  //     errors = [];
+  //     console.log("add error message");
+  //     console.log(error);
+  //     errors.push(error.message);
+  //   }
+  // }
+  // console.log("error");
   if (errors) {
     res.status(400).send({
       success: false,
       errors: errors
     });
   } else {
-    res.status(200).send({ success: true });
+    try{
+      db.insert({"email" : req.body.email, "password" : req.body.password});
+      res.status(200).send({ success: true });
+    }
+    catch(error){
+      errors = [ error.message ]; 
+      res.status(400).send({
+        success: false,
+        errors: errors
+      });
+    }
   }
 });
 
