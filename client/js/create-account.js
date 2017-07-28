@@ -36,9 +36,7 @@ function submit(formData) {
   }).done(function(res) {
     if (res.success) {
       displaySuccessMessage();
-      // setTimeout(function() {
-      //   $form.html(initialState);
-      // }, 3000);
+      window.location.replace("/user/"+res.user.email);
     }
   }).fail(function(err) {
     var errorsToArray = Object.keys(err.responseJSON.errors).reduce(function(a,b) {
